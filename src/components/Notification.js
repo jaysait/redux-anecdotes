@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-
+import { Alert } from '@mui/material';
 const Notification = () => {
   const notification = useSelector((state) => state.message.message);
   const style = {
@@ -11,7 +11,11 @@ const Notification = () => {
   if (notification === '') {
     return null;
   }
-  return <div style={style}>{notification}</div>;
+  return (
+    <Alert variant='filled' severity='success'>
+      {notification}
+    </Alert>
+  );
 };
 
 export default Notification;

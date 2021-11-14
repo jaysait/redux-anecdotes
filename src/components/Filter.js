@@ -1,7 +1,7 @@
 import React from 'react';
 import { filterChange } from '../reducers/filterReducer';
 import { useDispatch } from 'react-redux';
-
+import { TextField } from '@mui/material';
 const Filter = () => {
   const dispatch = useDispatch();
   const handleChange = (event) => {
@@ -12,8 +12,14 @@ const Filter = () => {
   };
   return (
     <div style={style}>
-      filter
-      <input type='text' name='filter' onChange={handleChange} />
+      <TextField
+        id='filter'
+        label='enter filter...'
+        type='search'
+        variant='filled'
+        name='filter'
+        onChange={handleChange}
+      />
     </div>
   );
 };

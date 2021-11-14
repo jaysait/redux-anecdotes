@@ -2,14 +2,19 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { voteAnecdote } from '../reducers/anecdoteReducer';
 import { notificationChange, setNotification } from '../reducers/notificationReducer';
+import { List, ListItem, ListItemText, Button } from '@mui/material';
 const Anecdote = ({ anecdote, handleClick }) => {
   return (
     <div>
-      <div>{anecdote.content}</div>
-      <div>
-        has {anecdote.votes}
-        <button onClick={handleClick}>vote</button>
-      </div>
+      <ListItem>
+        <ListItemText
+          primary={anecdote.content}
+          secondary={`has ${anecdote.votes} votes`}></ListItemText>
+
+        <Button variant='contained' onClick={handleClick}>
+          vote
+        </Button>
+      </ListItem>
     </div>
   );
 };
@@ -26,17 +31,19 @@ const AnecdoteList = () => {
   }); //THIS IS FOR EX6.5, BUT I DONT LIKE HOW IT WORKS...TODO CHECK IF BEST WAY[...state].sort((a, b) => b.votes - a.votes));
   return (
     <div>
-      {anecdotes.map((anecdote) => (
-        <Anecdote
-          key={anecdote.id}
-          anecdote={anecdote}
-          handleClick={() => {
-            dispatch(setNotification(`you voted '${anecdote.content}'`, 10));
+      <List dense={true}>
+        {anecdotes.map((anecdote) => (
+          <Anecdote
+            key={anecdote.id}
+            anecdote={anecdote}
+            handleClick={() => {
+              dispatch(setNotification(`you voted '${anecdote.content}'`, 10));
 
-            dispatch(voteAnecdote(anecdote.id));
-          }}
-        />
-      ))}
+              dispatch(voteAnecdote(anecdote.id));
+            }}
+          />
+        ))}
+      </List>
     </div>
   );
 };
